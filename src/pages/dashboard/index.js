@@ -20,7 +20,6 @@ import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
-
 // import IncomeAreaChart from './IncomeAreaChart';
 import HeadingText from 'components/HeadingText/HeadingText';
 import CustomPaginationActionsTable from './LowStockOrder';

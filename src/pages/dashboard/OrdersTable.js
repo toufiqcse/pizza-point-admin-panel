@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
 // material-ui
 import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-
 // third-party
 import NumberFormat from 'react-number-format';
-
 // project import
 import Dot from 'components/@extended/Dot';
-import { TablePagination } from '../../../node_modules/@mui/material/index';
+import { MenuItem, TablePagination, TextField } from '../../../node_modules/@mui/material/index';
 
 function createData(trackingNo, name, cName, order, price, payment, status, action) {
   return { trackingNo, name, cName, order, price, payment, status, action };
@@ -99,6 +96,24 @@ const headCells = [
     label: 'Status'
   }
 ];
+const status = [
+  {
+    value: 'processing',
+    label: 'Processing'
+  },
+  {
+    value: 'pending',
+    label: 'Pending'
+  },
+  {
+    value: 'shipping',
+    label: 'Shipping '
+  },
+  {
+    value: 'delivered',
+    label: 'Delivered'
+  }
+];
 
 // ==============================|| ORDER TABLE - HEADER ||============================== //
 
@@ -170,7 +185,7 @@ export default function OrderTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(6);
   const [selected] = useState([]);
-
+  const [value, setValue] = useState('processing');
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -250,7 +265,20 @@ export default function OrderTable() {
                       <TableCell align="left">{row.payment}</TableCell>
                     </TableCell>
                     <TableCell align="left">
-                      <OrderStatus status={row.status} />
+                      <TextField
+                        id="standard-select-currency"
+                        size="small"
+                        select
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        sx={{ '& .MuiInputBase-input': { py: 0.5, fontSize: '0.875rem' } }}
+                      >
+                        {status.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
                     </TableCell>
                   </TableRow>
                 );
